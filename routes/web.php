@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+Route::get('activateemail/{token}', function ($id) {
+    return "done";
+})->name("activate_email");

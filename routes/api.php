@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -12,8 +12,35 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
-*/
+ */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware(['auth:sanctum'])->group(function () {
+
+    Route::prefix('users')->group(function () {
+        Route::middleware(['role:admin'])->group(function () {
+            Route::get('/{id?}', "userController@list");
+            Route::put('/{id}/edit', "userController@editUser");
+        });
+        Route::post('/signin', "userController@signIn")->withoutMiddleware(['auth:sanctum']);
+        Route::post('/signup', "userController@signUp")->withoutMiddleware(['auth:sanctum']);
+        Route::post('/verifymail/{token}', "userController@verifyEmail");
+        Route::post('/resendactivationcode', "userController@resendActivationCode");
+    });
+
+    Route::prefix('tikets')->group(function () {
+            Route::get('/{id?}', "tiketController@List");
+           Route::middleware(['role:admin'])->group(function () {
+            Route::post('/create', "tiketController@create");
+            Route::put('{id}/edit', "tiketController@update");
+            Route::delete('{id}/delete', "tiketController@delete");
+        });
+
+    });
+});
+
+Route::post('/email', "userController@sendm");
+
+Route::fallback(function () {
+    return response()->json([
+        'message' => 'Page Not Found. If error persists, contact info@website.com'], 404);
 });

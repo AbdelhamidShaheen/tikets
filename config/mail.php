@@ -50,7 +50,15 @@ return [
         ],
 
         'mailgun' => [
-            'transport' => 'mailgun',
+            'transport' => 'smtp',
+            'host' => env('MAILGUN_HOST', 'smtp.mailgun.org'),
+            'port' => env('MAILGUN_PORT', 587),
+            'username' => env('MAILGUN_USERNAME'),
+            'password' => env('MAILGUN_PASSWORD'),
+            'encryption' => env('MAILGUN_ENCRYPTION', 'tls'),
+
+
+
         ],
 
         'postmark' => [
