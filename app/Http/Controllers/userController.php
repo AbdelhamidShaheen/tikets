@@ -103,6 +103,14 @@ class userController extends Controller
         return response(["activation code is created"], 200);
 
     }
+    public function auth(Request $request)
+    {  
+        $user=$request->user();
+         return$user;
+
+    }
+
+
 
     private function createToken($user)
     {   

@@ -25,6 +25,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/signup', "userController@signUp")->withoutMiddleware(['auth:sanctum']);
         Route::post('/verifymail/{token}', "userController@verifyEmail");
         Route::post('/resendactivationcode', "userController@resendActivationCode");
+        Route::post('/auth', "userController@auth");
     });
 
     Route::prefix('tikets')->group(function () {

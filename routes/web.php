@@ -15,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('activateemail/{token}', function ($id) {
-    return "done";
-})->name("activate_email");
+// Route::get('activateemail/{token}', function ($id) {
+//     return "done";
+// })->name("activate_email");
+
+
+Route::get("/{any}",function () {
+    return view("home");
+})->where("any",".*");
+
+
+/*Route::get("/",function () {
+    return view("home");
+}); */
