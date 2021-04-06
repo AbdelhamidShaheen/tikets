@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::middleware(['role:admin'])->group(function () {
+        Route::get('/dashboard',"dashboardController@Index");
+
+    });
 
     Route::prefix('users')->group(function () {
         Route::middleware(['role:admin'])->group(function () {
@@ -26,6 +30,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('/verifymail/{token}', "userController@verifyEmail");
         Route::post('/resendactivationcode', "userController@resendActivationCode");
         Route::post('/auth', "userController@auth");
+        Route::put('/updateprofile', "userController@updateProfile");
     });
 
     Route::prefix('tikets')->group(function () {

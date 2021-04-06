@@ -18,14 +18,28 @@ class userController extends Controller
 
         return $id ? User::find($id) : User::all();
     }
+    
     public function editUser(Request $request, $id)
     {
         $user_item = User::find($id);
         if ($user_item) {
-            $user_item->role = $request->role;
+            $user_item->role = "admin";
 
-            return $user_item->save();
+             $user_item->save();
         }
+           return response(["update success"],200);
+    }
+    public function updateProfile(Request $request)
+    {
+        $user= $request->user();
+        $user->user_name = $request->username;
+        $user->email = $request->email;
+        
+           
+
+        $user->save();
+        return response(["update success"],200);
+        
 
     }
 
@@ -56,7 +70,7 @@ class userController extends Controller
     {$rules = [
         "username" => ["required", "unique:users,user_name"],
         "email" => ["required", "email:rfc", "unique:users,email"],
-        "password" => ["required", "min:8", "max:16"],
+        "password" => ["required", "min:8", "max:16","confirmed"],
 
     ];
 
@@ -109,6 +123,8 @@ class userController extends Controller
          return$user;
 
     }
+
+
 
 
 

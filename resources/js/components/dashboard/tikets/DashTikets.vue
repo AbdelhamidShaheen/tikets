@@ -1,6 +1,6 @@
 
 <template>
-<h1> Hello front</h1>
+<router-view></router-view>
 </template>
 
 <script>
@@ -8,7 +8,6 @@ export default {
   data() {
     return {};
   }
-  
- 
+
 };
 </script>
