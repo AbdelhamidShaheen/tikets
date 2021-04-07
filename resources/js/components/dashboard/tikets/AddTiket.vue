@@ -12,9 +12,9 @@
           <input
             type="date"
             class="form-control"
-            id="email"
-            name="email"
+           
             v-model="form.deadline"
+            required
           />
         </div>
        
@@ -37,8 +37,8 @@ export default {
   data() {
     return {
       form:{deadline:""},
-      errors:[]
-
+      errors:[],
+      has_error:0
    
       
     };
@@ -48,7 +48,25 @@ export default {
   },
   methods: {
     add: function () {
-     
+     var data =this.form;
+ console.log(data);
+var config = {
+  method: 'post',
+  url: '/api/tikets/create',
+  headers: { 
+      Authorization: "Bearer ".concat(JSON.parse(localStorage.getItem("token"))),
+  },
+  data : data
+};
+
+axios(config)
+.then((response)=> {
+       this.$router.push({name:"Tikets"});
+
+})
+.catch( (error)=> {
+  this.errors=error.response.data;
+});
 
      
    

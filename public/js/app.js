@@ -2409,12 +2409,33 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         deadline: ""
       },
-      errors: []
+      errors: [],
+      has_error: 0
     };
   },
   mounted: function mounted() {},
   methods: {
-    add: function add() {}
+    add: function add() {
+      var _this = this;
+
+      var data = this.form;
+      console.log(data);
+      var config = {
+        method: 'post',
+        url: '/api/tikets/create',
+        headers: {
+          Authorization: "Bearer ".concat(JSON.parse(localStorage.getItem("token")))
+        },
+        data: data
+      };
+      axios(config).then(function (response) {
+        _this.$router.push({
+          name: "Tikets"
+        });
+      })["catch"](function (error) {
+        _this.errors = error.response.data;
+      });
+    }
   },
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
@@ -2567,7 +2588,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
-    title: 'Add Tikets' //   // all titles will be injected into this template
+    title: 'Edit Tikets' //   // all titles will be injected into this template
     //   titleTemplate: '%s | My Awesome Webapp'
 
   }
@@ -22648,7 +22669,7 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "date", id: "email", name: "email" },
+              attrs: { type: "date", required: "" },
               domProps: { value: _vm.form.deadline },
               on: {
                 input: function($event) {
@@ -22812,7 +22833,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n         Add\n       ")]
+            [_vm._v("\n         Edit\n       ")]
           )
         ])
       ])
