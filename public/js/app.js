@@ -2374,20 +2374,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      form: {},
+      form: {
+        deadline: ""
+      },
       errors: []
     };
   },
   mounted: function mounted() {},
   methods: {
-    laodform: function laodform() {}
+    add: function add() {}
   },
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
-    title: 'Tikets' //   // all titles will be injected into this template
+    title: 'Add Tikets' //   // all titles will be injected into this template
     //   titleTemplate: '%s | My Awesome Webapp'
 
   }
@@ -2492,20 +2523,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      form: {},
+      form: {
+        deadline: ""
+      },
       errors: []
     };
   },
   mounted: function mounted() {},
   methods: {
-    laodform: function laodform() {}
+    edit: function edit() {}
   },
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
-    title: 'Tikets' //   // all titles will be injected into this template
+    title: 'Add Tikets' //   // all titles will be injected into this template
     //   titleTemplate: '%s | My Awesome Webapp'
 
   }
@@ -22552,7 +22614,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Add")])
+  return _c(
+    "div",
+    { staticStyle: { width: "300px", margin: "auto", "margin-top": "3px" } },
+    [
+      _vm.has_error
+        ? _c("div", { staticClass: "alert alert-danger" }, [
+            _vm._v("\n  " + _vm._s(_vm.errors[0]) + "\n   ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "fluid-container border p-3" }, [
+        _c("h4", { staticClass: "mb-3" }, [_vm._v("Add Tiket")]),
+        _vm._v(" "),
+        _c("div", [
+          _c("div", { staticStyle: { "margin-bottom": "3px" } }, [
+            _c(
+              "label",
+              {
+                staticClass: "form-label",
+                attrs: { for: "exampleInputEmail1" }
+              },
+              [_vm._v("deadline")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.deadline,
+                  expression: "form.deadline"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "date", id: "email", name: "email" },
+              domProps: { value: _vm.form.deadline },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "deadline", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary form-control",
+              attrs: { type: "submit" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.add($event)
+                }
+              }
+            },
+            [_vm._v("\n         Add\n       ")]
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -22627,7 +22753,71 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Edit")])
+  return _c(
+    "div",
+    { staticStyle: { width: "300px", margin: "auto", "margin-top": "3px" } },
+    [
+      _vm.has_error
+        ? _c("div", { staticClass: "alert alert-danger" }, [
+            _vm._v("\n  " + _vm._s(_vm.errors[0]) + "\n   ")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "fluid-container border p-3" }, [
+        _c("h4", { staticClass: "mb-3" }, [_vm._v("Edit Tiket")]),
+        _vm._v(" "),
+        _c("div", [
+          _c("div", { staticStyle: { "margin-bottom": "3px" } }, [
+            _c(
+              "label",
+              {
+                staticClass: "form-label",
+                attrs: { for: "exampleInputEmail1" }
+              },
+              [_vm._v("new deadline")]
+            ),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.form.deadline,
+                  expression: "form.deadline"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { type: "date", id: "email", name: "email" },
+              domProps: { value: _vm.form.deadline },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.form, "deadline", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-primary form-control",
+              attrs: { type: "submit" },
+              on: {
+                click: function($event) {
+                  $event.preventDefault()
+                  return _vm.edit($event)
+                }
+              }
+            },
+            [_vm._v("\n         Add\n       ")]
+          )
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -22688,7 +22878,9 @@ var render = function() {
                         "margin-right": "5px",
                         "font-weight": "bold"
                       },
-                      attrs: { to: "#" }
+                      attrs: {
+                        to: { name: "EditTiket", params: { id: tiket.id } }
+                      }
                     },
                     [_vm._v("Edit")]
                   ),

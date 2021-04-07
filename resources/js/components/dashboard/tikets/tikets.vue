@@ -16,7 +16,7 @@
         <td>{{tiket.uid}}</td>
         <td>{{tiket.deadline}}</td>
         <td>
-           <router-link to="#" class="btn btn-primary" style="margin-right:5px; font-weight: bold;">Edit</router-link> 
+            <router-link :to="{ name: 'EditTiket', params: { id: tiket.id }}" class="btn btn-primary" style="margin-right:5px; font-weight: bold;">Edit</router-link> 
             <router-link :to="{ name: 'DeleteTiket', params: { id: tiket.id }}" class="btn btn-primary" style="margin-right:5px; font-weight: bold;">Delete</router-link> 
 
         </td>
