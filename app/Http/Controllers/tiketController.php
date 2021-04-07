@@ -7,9 +7,12 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use App\Traits\EmailService;
+
 
 class tiketController extends Controller
 {
+    use EmailService;
 
     function list(Request $request) {
         $user = $request->user();
@@ -46,6 +49,8 @@ class tiketController extends Controller
         $tiket->state = "open";
         $tiket->assigned = false;
         $tiket->save();
+       
+        // $this->send($request->user()->email,"Tiket Creation","tiket creation operation success");
         return response(["tiket creation success"], 201);
         //
     }
@@ -78,12 +83,13 @@ class tiketController extends Controller
             }
             $tiket->save();
         }
+        // $this->send($request->user()->email,"Update Tiket","Update tiket operation success");
 
         return response(["tiket update success"], 200);
         //
     }
 
-    public function delete($id)
+    public function delete(Request $request,$id)
     {
         $tiket = Tiket::find($id);
         if (!$tiket) {
@@ -91,6 +97,7 @@ class tiketController extends Controller
 
         }
         $tiket->delete();
+        // $this->send($request->user()->email,"delete Tiket","delete tiket operation success");
 
         return response(["tiket delete success"], 200);
 

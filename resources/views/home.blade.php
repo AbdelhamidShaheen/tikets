@@ -74,7 +74,40 @@
                                       </li>
                                       <li> <router-link to="/dashboard/users">Users</router-link>
                                       </li>
-                                      <li style=""><router-link to="/dashboard/tikets">Tikets</router-link></li>
+         
+
+
+
+
+
+
+                                      <li class="panel panel-default">
+                                        <a data-toggle="collapse" href="#dropdown-lvl2">
+                                            Tikets
+                                          <span class="caret"></span>
+                                        </a>
+                                        <!-- Dropdown level 1 -->
+                                        <div id="dropdown-lvl2" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <ul class="nav navbar-nav">
+                                                   
+                                                    <li><router-link to="/dashboard/tikets">Show Tikets</router-link></li>
+                                                    <li><router-link :to="{ name: 'AddTiket'}" >Add Tiket</router-link></li>
+              
+                
+                                                    
+                                                </ul>
+                                            </div>
+                                        </div>
+              
+                                    </li>
+
+
+
+
+
+
+
 
   
                                       
@@ -94,7 +127,7 @@
     <!--navigation here-->
     <!--main content view-->
     <div class="container">
-        <router-view></router-view>
+        <router-view v-on:updateparent="handleUpdate" ></router-view>
 
     </div>
 

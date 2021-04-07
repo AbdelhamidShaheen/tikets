@@ -27,6 +27,8 @@ class userController extends Controller
 
              $user_item->save();
         }
+        //creat MailGun Account For Test Then Uncooment All Notification  code 
+        // $this->send($user_item->email,"Admin Permission","Your Acount Has Upgraded To Admin");
            return response(["update success"],200);
     }
     public function updateProfile(Request $request)
@@ -38,6 +40,7 @@ class userController extends Controller
            
 
         $user->save();
+        // $this->send($user->email,"Update Profile","Update Profile success");
         return response(["update success"],200);
         
 
@@ -59,6 +62,14 @@ class userController extends Controller
             $errors = ["email or passwords un matched"];
             return response($errors, 404);
         }
+
+        if(!$user->email_verified){
+            $token_op= $this->createToken($user);
+            // $this->sendActivationCode($user->email,"Activation code",$token_op->token);
+
+        }
+
+
         $token = $user->createToken('app-token')->plainTextToken;
         $response = ['user' => $user, 'token' => $token];
 
@@ -96,11 +107,11 @@ class userController extends Controller
         //check token
         //update toke model that it used
         //return response
-        $user = $request->user();
-        $token_data = Token::where("user_id", $user->id)->first();
-        if (!$token || ($token_data->token != $token)) {
+        $token_data = Token::where("token", $token)->where("confirmed", false)->first();
+        if (!$token_data) {
             return response(["activation code is not valid"], 204);
         }
+        $user=User::find($token_data->user_id);
         $user->email_verified=true;
         $user->save();
         $token_data->confirmed = true;
@@ -110,10 +121,15 @@ class userController extends Controller
     }
     public function resendActivationCode(Request $request)
     {  
-        $user=$request->user();
+        $user_email=$request->email;
+        $user=User::where("email",$user_email)->first();
+        if(!$user){
+  return response(["account not found"], 401);
+        }
+
         $token_op=$this->createToken($user);
         
-        $this->sendActivationCode($user->email,"Activation code",$token_op->token);
+        // $this->sendActivationCode($user->email,"Activation code",$token_op->token);
         return response(["activation code is created"], 200);
 
     }

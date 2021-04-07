@@ -1,6 +1,9 @@
 
 <template>
   <div style="width: 300px ;margin: auto; margin-top:3px;" >
+    <div class="alert alert-danger" v-if="has_error">
+   {{errors[0]}}
+    </div>
     <div class="fluid-container border p-3">
       <h4 class="mb-3">LOGIN</h4>
       <div>
@@ -51,6 +54,7 @@ export default {
     return {
       form: { email: "", password: "" },
       errors: [],
+      has_error:false
 
     };
   },
@@ -76,12 +80,20 @@ export default {
         .then( (response)=> {
 
           var user=response.data.user;
-          var token=response.data.token;
+          if(user.email_verified){
+         var token=response.data.token;
          localStorage.setItem("auth","true");
          localStorage.setItem("token",JSON.stringify(token));
          localStorage.setItem("user",JSON.stringify(user));
-         
+         this.$emit('updateparent', "login");
            this.$router.push({name:"Home"});
+
+          
+
+          }
+          this.errors[0]="check your acount for activate";
+          this.has_error=true;
+             console.log(this.errors[0]);
          
         })
         .catch(function (error) {

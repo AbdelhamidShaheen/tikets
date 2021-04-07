@@ -66,6 +66,26 @@ const app = new Vue({
 
         console.log(this.auth);
         console.log(this.role);
+    },
+    methods: {
+        handleUpdate: function(value) {
+            switch (value) {
+                case "login":
+                    this.auth = JSON.parse(localStorage.getItem("auth"));
+                    this.role = JSON.parse(localStorage.getItem("user")).role;
+                    console.log("login");
+                    break;
+                case "logout":
+                    this.auth = false;
+                    this.role = false;
+                    console.log("logout");
+                    break;
+            }
+
+
+        },
+
     }
+
 
 });

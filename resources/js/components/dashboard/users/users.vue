@@ -15,7 +15,7 @@
         <td>{{user.user_name}}</td>
         <td>{{user.role}}</td>
         <td>
-           <router-link to="#" class="btn btn-primary" style="margin-right:5px; font-weight: bold;">Edit</router-link> 
+           <router-link :to="{ name: 'EditUsers', params: { id: user.id }}" class="btn btn-primary" style="margin-right:5px; font-weight: bold;">Edit</router-link> 
 
         </td>
       </tr>

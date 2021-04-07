@@ -24,6 +24,7 @@ export default {
  localStorage.removeItem("auth");
  localStorage.removeItem("user");
  localStorage.removeItem("token");
+ this.$emit('updateparent', "logout");
  this.$router.push({name:"Home"});
 
     },

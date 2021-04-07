@@ -27,8 +27,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
         });
         Route::post('/signin', "userController@signIn")->withoutMiddleware(['auth:sanctum']);
         Route::post('/signup', "userController@signUp")->withoutMiddleware(['auth:sanctum']);
-        Route::post('/verifymail/{token}', "userController@verifyEmail");
-        Route::post('/resendactivationcode', "userController@resendActivationCode");
+        Route::post('/verifymail/{token}', "userController@verifyEmail")->withoutMiddleware(['auth:sanctum']);
+        Route::post('/resendactivationcode', "userController@resendActivationCode")->withoutMiddleware(['auth:sanctum']);
         Route::post('/auth', "userController@auth");
         Route::put('/updateprofile', "userController@updateProfile");
     });
