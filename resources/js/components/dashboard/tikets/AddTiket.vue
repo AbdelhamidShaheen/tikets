@@ -1,14 +1,12 @@
 
 <template>
  <div style="width: 300px ;margin: auto; margin-top:3px;" >
-    <div class="alert alert-danger" v-if="has_error">
-   {{errors[0]}}
-    </div>
+   
     <div class="fluid-container border p-3">
       <h4 class="mb-3">Add Tiket</h4>
       <div>
         <div style="margin-bottom:3px;">
-          <label for="exampleInputEmail1" class="form-label">deadline</label>
+          <label class="form-label">deadline</label>
           <input
             type="date"
             class="form-control"
@@ -38,7 +36,7 @@ export default {
     return {
       form:{deadline:""},
       errors:[],
-      has_error:0
+    
    
       
     };
@@ -65,7 +63,9 @@ axios(config)
 
 })
 .catch( (error)=> {
+  console.log(error.response);
   this.errors=error.response.data;
+  
 });
 
      

@@ -1,7 +1,7 @@
 
 <template>
  <div class="container">
-   <router-link to="#" class="btn btn-primary" style="margin:10px; font-weight: bold;">Add tiket</router-link>           
+   <router-link :to="{ name: 'AddTiket'}" class="btn btn-primary" style="margin:10px; font-weight: bold;">Add tiket</router-link> 
   <table class="table">
     <thead>
       <tr>

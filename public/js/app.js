@@ -2401,16 +2401,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       form: {
         deadline: ""
       },
-      errors: [],
-      has_error: 0
+      errors: []
     };
   },
   mounted: function mounted() {},
@@ -2433,6 +2430,7 @@ __webpack_require__.r(__webpack_exports__);
           name: "Tikets"
         });
       })["catch"](function (error) {
+        console.log(error.response);
         _this.errors = error.response.data;
       });
     }
@@ -2569,26 +2567,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       form: {
         deadline: ""
-      },
-      errors: []
+      }
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    var _this = this;
+
+    var id = this.$route.params.id;
+    var config = {
+      method: "get",
+      url: "/api/tikets/" + id,
+      headers: {
+        Authorization: "Bearer ".concat(JSON.parse(localStorage.getItem("token")))
+      }
+    };
+    axios(config).then(function (response) {
+      _this.form.deadline = response.data.deadline;
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  },
   methods: {
-    edit: function edit() {}
+    edit: function edit() {
+      var _this2 = this;
+
+      var id = this.$route.params.id;
+      var data = this.form;
+      var config = {
+        method: "put",
+        url: "/api/tikets/" + id + "/edit",
+        headers: {
+          Authorization: "Bearer ".concat(JSON.parse(localStorage.getItem("token")))
+        },
+        data: data
+      };
+      axios(config).then(function (response) {
+        _this2.$router.push({
+          name: "Tikets"
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   },
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
-    title: 'Edit Tikets' //   // all titles will be injected into this template
+    title: "Edit Tikets" //   // all titles will be injected into this template
     //   titleTemplate: '%s | My Awesome Webapp'
 
   }
@@ -22639,25 +22668,12 @@ var render = function() {
     "div",
     { staticStyle: { width: "300px", margin: "auto", "margin-top": "3px" } },
     [
-      _vm.has_error
-        ? _c("div", { staticClass: "alert alert-danger" }, [
-            _vm._v("\n  " + _vm._s(_vm.errors[0]) + "\n   ")
-          ])
-        : _vm._e(),
-      _vm._v(" "),
       _c("div", { staticClass: "fluid-container border p-3" }, [
         _c("h4", { staticClass: "mb-3" }, [_vm._v("Add Tiket")]),
         _vm._v(" "),
         _c("div", [
           _c("div", { staticStyle: { "margin-bottom": "3px" } }, [
-            _c(
-              "label",
-              {
-                staticClass: "form-label",
-                attrs: { for: "exampleInputEmail1" }
-              },
-              [_vm._v("deadline")]
-            ),
+            _c("label", { staticClass: "form-label" }, [_vm._v("deadline")]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -22778,25 +22794,14 @@ var render = function() {
     "div",
     { staticStyle: { width: "300px", margin: "auto", "margin-top": "3px" } },
     [
-      _vm.has_error
-        ? _c("div", { staticClass: "alert alert-danger" }, [
-            _vm._v("\n  " + _vm._s(_vm.errors[0]) + "\n   ")
-          ])
-        : _vm._e(),
-      _vm._v(" "),
       _c("div", { staticClass: "fluid-container border p-3" }, [
         _c("h4", { staticClass: "mb-3" }, [_vm._v("Edit Tiket")]),
         _vm._v(" "),
         _c("div", [
           _c("div", { staticStyle: { "margin-bottom": "3px" } }, [
-            _c(
-              "label",
-              {
-                staticClass: "form-label",
-                attrs: { for: "exampleInputEmail1" }
-              },
-              [_vm._v("new deadline")]
-            ),
+            _c("label", { staticClass: "form-label" }, [
+              _vm._v("new deadline")
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -22808,7 +22813,7 @@ var render = function() {
                 }
               ],
               staticClass: "form-control",
-              attrs: { type: "date", id: "email", name: "email" },
+              attrs: { type: "date" },
               domProps: { value: _vm.form.deadline },
               on: {
                 input: function($event) {
@@ -22833,7 +22838,7 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n         Edit\n       ")]
+            [_vm._v("\n        Edit\n      ")]
           )
         ])
       ])
@@ -22872,7 +22877,7 @@ var render = function() {
         {
           staticClass: "btn btn-primary",
           staticStyle: { margin: "10px", "font-weight": "bold" },
-          attrs: { to: "#" }
+          attrs: { to: { name: "AddTiket" } }
         },
         [_vm._v("Add tiket")]
       ),

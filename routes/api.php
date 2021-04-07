@@ -34,7 +34,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     });
 
     Route::prefix('tikets')->group(function () {
-            Route::get('/{id?}', "tiketController@List");
+            Route::get('/', "tiketController@List");
+            Route::get('/{id}', "tiketController@GetById");
            Route::middleware(['role:admin'])->group(function () {
             Route::post('/create', "tiketController@create");
             Route::put('{id}/edit', "tiketController@update");

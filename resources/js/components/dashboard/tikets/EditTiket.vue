@@ -1,24 +1,21 @@
 
 <template>
- <div style="width: 300px ;margin: auto; margin-top:3px;" >
-    <div class="alert alert-danger" v-if="has_error">
-   {{errors[0]}}
-    </div>
+  <div style="width: 300px; margin: auto; margin-top: 3px">
     <div class="fluid-container border p-3">
       <h4 class="mb-3">Edit Tiket</h4>
       <div>
-        <div style="margin-bottom:3px;">
-          <label for="exampleInputEmail1" class="form-label">new deadline</label>
+        <div style="margin-bottom: 3px">
+          <label  class="form-label"
+            >new deadline</label
+          >
           <input
             type="date"
             class="form-control"
-            id="email"
-            name="email"
+          
             v-model="form.deadline"
           />
         </div>
-       
-       
+
         <button
           type="submit"
           @click.prevent="edit"
@@ -26,7 +23,6 @@
         >
           Edit
         </button>
-     
       </div>
     </div>
   </div>
@@ -36,29 +32,63 @@
 export default {
   data() {
     return {
-      form:{deadline:""},
-      errors:[]
-
-   
-      
+      form: { deadline: "" },
     };
   },
   mounted() {
-   
+    var id = this.$route.params.id;
+
+    var config = {
+      method: "get",
+      url: "/api/tikets/"+id,
+      headers: {
+        Authorization: "Bearer ".concat(
+          JSON.parse(localStorage.getItem("token"))
+        ),
+      },
+    };
+
+    axios(config)
+      .then((response) => {
+        this.form.deadline = response.data.deadline;
+      
+       
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   },
   methods: {
     edit: function () {
-     
+      var id = this.$route.params.id;
 
-     
-   
+      var data = this.form;
+    
+      var config = {
+        method: "put",
+        url: "/api/tikets/" + id + "/edit",
+        headers: {
+          Authorization: "Bearer ".concat(
+            JSON.parse(localStorage.getItem("token"))
+          ),
+        },
+        data: data,
+      };
+
+      axios(config)
+        .then((response) => {
+          this.$router.push({ name: "Tikets" });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     },
   },
-    metaInfo: {
-      // if no subcomponents specify a metaInfo.title, this title will be used
-      title: 'Edit Tikets',
+  metaInfo: {
+    // if no subcomponents specify a metaInfo.title, this title will be used
+    title: "Edit Tikets",
     //   // all titles will be injected into this template
     //   titleTemplate: '%s | My Awesome Webapp'
-    }
+  },
 };
 </script>
