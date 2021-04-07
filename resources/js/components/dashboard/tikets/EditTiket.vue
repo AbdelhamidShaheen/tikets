@@ -50,8 +50,10 @@ export default {
 
     axios(config)
       .then((response) => {
-        this.form.deadline = response.data.deadline;
+        var deadline=response.data.deadline;
       
+        this.form.deadline = deadline.split(" ")[0];
+        
        
       })
       .catch(function (error) {

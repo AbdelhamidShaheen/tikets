@@ -2587,7 +2587,8 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
     axios(config).then(function (response) {
-      _this.form.deadline = response.data.deadline;
+      var deadline = response.data.deadline;
+      _this.form.deadline = deadline.split(" ")[0];
     })["catch"](function (error) {
       console.log(error);
     });
