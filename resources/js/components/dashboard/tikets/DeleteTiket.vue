@@ -1,6 +1,6 @@
 
 <template>
-<h1>Edit</h1>
+
 </template>
 
 <script>
@@ -15,11 +15,30 @@ export default {
     };
   },
   mounted() {
-   
+   this.delete();
   },
   methods: {
-    laodform: function () {
-     
+    delete: function () {
+       var id=this.$route.params.id;
+     var config = {
+  method: 'delete',
+  url: 'http://127.0.0.1:8000/api/tikets/'+id+'/delete',
+  headers: { 
+     'Authorization': "Bearer ".concat(JSON.parse(localStorage.getItem("token"))) 
+  
+  },
+ 
+};
+
+axios(config)
+.then( (response)=> {
+     this.$router.replace({name:"Tikets"});
+
+})
+.catch(function (error) {
+  console.log(error);
+});
+
 
      
    

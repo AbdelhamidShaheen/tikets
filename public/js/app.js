@@ -2442,9 +2442,29 @@ __webpack_require__.r(__webpack_exports__);
       errors: []
     };
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    this["delete"]();
+  },
   methods: {
-    laodform: function laodform() {}
+    "delete": function _delete() {
+      var _this = this;
+
+      var id = this.$route.params.id;
+      var config = {
+        method: 'delete',
+        url: 'http://127.0.0.1:8000/api/tikets/' + id + '/delete',
+        headers: {
+          'Authorization': "Bearer ".concat(JSON.parse(localStorage.getItem("token")))
+        }
+      };
+      axios(config).then(function (response) {
+        _this.$router.replace({
+          name: "Tikets"
+        });
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
   },
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
@@ -22532,7 +22552,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Edit")])
+  return _c("h1", [_vm._v("Add")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -22582,7 +22602,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Edit")])
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true
