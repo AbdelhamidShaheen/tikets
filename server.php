@@ -1,6 +1,10 @@
 <?php
 /*ooaa*/
 
+<<<<<<< HEAD
+=======
+/*ooaa*/
+>>>>>>> d2ca7efd0f2864e7d2c2684b13ffabab954b7efd
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
